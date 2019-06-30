@@ -25,8 +25,7 @@ class CVESearch(object):
 		return self._session
 
 	def __request(self, endpoint, query):
-		response_object = self.session.get(requests.compat.urljoin(self.base_url + endpoint, query),
-		                                   timeout = self.request_timeout)
+		response_object = self.session.get(self.base_url + endpoint + query, timeout=self.request_timeout)
 
 		try:
 			response = json.loads(response_object.text)
@@ -48,6 +47,12 @@ class CVESearch(object):
 			vendor and a specific product
 		"""
 		response = self.__request('search/', query=param)
+		return response
+
+	def cvefor(self, param):
+		""" cvefor() returns a
+		"""
+		response = self.__request('cvefor/', query=param)
 		return response
 
 	def id(self, param):
